@@ -5,7 +5,12 @@
 
     <groupId>cn.wwinter</groupId>
     <artifactId>wwintersservices</artifactId>
+    <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
+
+    <modules>
+        <module>customer</module>
+    </modules>
 
     <name>wwintersservices</name>
     <description>wwintersservices</description>
