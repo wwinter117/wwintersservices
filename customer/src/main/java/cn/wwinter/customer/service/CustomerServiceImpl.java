@@ -37,13 +37,15 @@ public class CustomerServiceImpl implements CustomerService{
         customerRepository.saveAndFlush(customer);
 
         FraudCheckResponse checkResponse = restTemplate.getForObject(
-                "http://localhost:8081/fraud/api/{customerId}",
+                "http://FRAUD/fraud/api/{customerId}",
                 FraudCheckResponse.class,
                 customer.getId()
         );
         if (checkResponse.getIsFraudster()) {
             throw new IllegalStateException("fraudster");
         }
+
+        // todo: send notification
 
     }
 

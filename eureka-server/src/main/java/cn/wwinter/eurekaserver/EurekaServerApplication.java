@@ -1,8 +1,8 @@
-package cn.wwinter.fraud;
+package cn.wwinter.eurekaserver;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 
 /**
  * 启动类
@@ -10,9 +10,9 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
  * @Date 2023/2/15
  */
 @SpringBootApplication
-@EnableEurekaClient
-public class FraudApplication {
+@EnableEurekaServer
+public class EurekaServerApplication {
     public static void main(String[] args) {
-        SpringApplication.run(FraudApplication.class, args);
+        SpringApplication.run(EurekaServerApplication.class, args);
     }
 }
