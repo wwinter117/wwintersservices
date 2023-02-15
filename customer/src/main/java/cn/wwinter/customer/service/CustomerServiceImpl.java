@@ -3,8 +3,10 @@ package cn.wwinter.customer.service;
 import cn.wwinter.customer.repository.Customer;
 import cn.wwinter.customer.repository.CustomerRegistrationRequest;
 import cn.wwinter.customer.repository.CustomerRepository;
+import cn.wwinter.customer.repository.FraudCheckResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -17,6 +19,8 @@ import java.util.List;
 public class CustomerServiceImpl implements CustomerService{
     @Autowired
     private CustomerRepository customerRepository;
+    @Autowired
+    private RestTemplate restTemplate;
 
     /**
      * 注册
@@ -30,7 +34,17 @@ public class CustomerServiceImpl implements CustomerService{
 
         // todo: some checks
 
-        customerRepository.save(customer);
+        customerRepository.saveAndFlush(customer);
+
+        FraudCheckResponse checkResponse = restTemplate.getForObject(
+                "http://localhost:8081/fraud/api/{customerId}",
+                FraudCheckResponse.class,
+                customer.getId()
+        );
+        if (checkResponse.getIsFraudster()) {
+            throw new IllegalStateException("fraudster");
+        }
+
     }
 
     /**
